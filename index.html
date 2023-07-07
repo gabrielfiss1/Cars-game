@@ -10,15 +10,19 @@
       href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/estilos.css">
   </head>
   <body>
-    <header class="cabecalho"></header>
+    <header class="cabecalho">
+      <img class="logo" src="./src/imagens/logo.svg" alt="logo_x-men">
+    </header>
 
     <main class="selecao_personagens">
       <section class="personagens">
         <h1 class="titulo">Selecione um personagem</h1>
         <ul class="lista_personagens">
-          <li class="personagem" id="ciclope">
+          <li class="personagem selecionado" id="ciclope">
             <img src="./src/imagens/card-ciclope.jpg" alt="img_ciplope" />
           </li>
           <li class="personagem" id="jean_grey">
@@ -47,7 +51,7 @@
           </li>
         </ul>
       </section>
-      <section class="personagens_selecionado">
+      <section class="personagem_selecionado">
         <img
           class="personagem_grande"
           src="./src/imagens/card-ciclope.png"
