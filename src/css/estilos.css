@@ -44,6 +44,7 @@ body::before{
     align-items: center;
     max-width: 585px;
     gap: 30px;
+    
 }
 
 .selecao_personagens .personagens .titulo{
@@ -53,6 +54,7 @@ body::before{
     border-bottom: 2px solid #47f4ff;
     width: 100%;
     text-align: center;
+    
 }
 
 .lista_personagens .personagem img{
@@ -62,6 +64,8 @@ body::before{
 
 .lista_personagens .personagem.selecionado{
     box-shadow: 0px 0px 24px 5px #0271f7;
+    transition: 0.5s;
+    
 }
 .personagem > img{
     border-bottom: 3px solid #47f4ff;
@@ -73,6 +77,7 @@ body::before{
 .personagem_selecionado{
     text-align: center;
     max-height: 530px;
+    transition: 0.5s;
     
 }
 
