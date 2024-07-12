@@ -110,6 +110,25 @@ body::before{
     width: 420px;
 }
 
+button_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.start {
+    margin: 30px 45%;
+    background-color: #fb0000;
+    width: 180px;
+    height: 60px;
+    border: transparent;
+    border-radius: 5px;
+    color: aliceblue;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    
+    
+}
 
 /* responsividade */
 
@@ -130,5 +149,8 @@ body::before{
     
     .selecao_personagens .lista_personagens{
         gap: 18px;
+    }
+    button {
+        display: flex;
     }
 }
