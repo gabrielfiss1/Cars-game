@@ -132,6 +132,8 @@ button_container{
 
 canvas {
     border: 1px solid black;
+    margin: 5% 33%;
+    
 }
 
 /* responsividade */
