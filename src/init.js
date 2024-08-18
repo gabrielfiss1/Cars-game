@@ -26,8 +26,8 @@ const init = async () => {
     CTX = CANVAS.getContext('2d')
     CTX.clearRect(0, 0, CANVAS.width, CANVAS.height)
     
-    mcqueenSpriteImage = await loadImage('./src/img/mcqueenback.png')
-    bgImage = await loadImage('./src/img/roadbg.png')
+    mcqueenSpriteImage = await loadImage('/src/img/mcqueenback.png')
+    bgImage = await loadImage('/src/img/roadbg.png')
     bgPattern = CTX.createPattern(bgImage, 'repeat')
 
     boundaries = {
