@@ -1,33 +1,29 @@
-import { loadImage } from "./loaderAssets"
-import McQueen from "./McQueen"
-import Circle from "./geometries/Circle"
-import { keyPress, key } from "./keyboard"
-import Enemy from "./Enemy"
+import { loadImage } from "./loaderAssets";
+import McQueen from "./McQueen";
+import Enemy from "./Enemy";
+import { keyPress, key } from "./keyboard";
 
 let CTX;
-let CANVAS;
+let CANVAS; 
 const FRAMES = 45;
-
+let crashSound;
+let passSound; 
 let mcqueenSpriteImage = null;
 let bgImage = null;
 let bgPattern;
 const mcqueen = new McQueen(240, 480, 10, 100, 100, FRAMES);
 
 const enemySpritePaths = [
-    '/src/img/vilainsprite.png', // Caminho do primeiro sprite
-    '/src/img/vilainsprite2.png'  // Caminho do segundo sprite
+    '/src/img/vilainsprite.png', 
+    '/src/img/vilainsprite2.png'  // adicionar mais sprites
 ];
 
-// Função para escolher um sprite aleatório
 function getRandomSprite() {
     return enemySpritePaths[Math.floor(Math.random() * enemySpritePaths.length)];
 }
 
 let enemies = [];
-
-let cellWidth = 41.5; // largura da célula de recortes
-let cellHeight = 53;  // altura da célula de recorte
-let currentSprite = 1; // Sprite inicial (de costas)
+let currentSprite = 1; 
 
 let boundaries;
 let gameover = false;
@@ -38,26 +34,32 @@ const init = async () => {
     CTX = CANVAS.getContext('2d');
     CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
 
-    mcqueenSpriteImage = await loadImage('/src/img/mcqueenback.png');
-    bgImage = await loadImage('/src/img/roadbg.png');
-    bgPattern = CTX.createPattern(bgImage, 'repeat');
+    try {
+        mcqueenSpriteImage = await loadImage('/src/img/mcqueenback.png');
+        bgImage = await loadImage('/src/img/roadbg.png');
+        bgPattern = CTX.createPattern(bgImage, 'repeat');
 
-    boundaries = {
-        width: CANVAS.width,
-        height: CANVAS.height
-    };
+        crashSound = new Audio('/src/sounds/crash.mp3'); 
+        passSound = new Audio('/src/sounds/pass.mp3'); 
 
-    // Inicializa os inimigos corretamente
-    enemies = Array.from({ length: 2 }, () => {
-        return new Enemy(
-            Math.random() * CANVAS.width,
-            Math.random() * -CANVAS.height, // Inimigos começam fora da tela
-            80,80, 10, getRandomSprite()
-        );
-    });
+        boundaries = {
+            width: CANVAS.width,
+            height: CANVAS.height
+        };
 
-    keyPress(window);
-    start(); // Chama a função start para iniciar o jogo
+        enemies = Array.from({ length: 2 }, () => {
+            return new Enemy(
+                Math.random() * CANVAS.width,
+                Math.random() * -CANVAS.height, // Inimigos começam fora da tela por isso o menos
+                80, 80, 5, getRandomSprite()
+            );
+        });
+
+        keyPress(window);
+        start(); 
+    } catch (error) {
+        console.error("Error initializing the game:", error);
+    }
 };
 
 const updateSprite = () => {
@@ -66,7 +68,7 @@ const updateSprite = () => {
     } else if (key === 'ArrowRight') {
         currentSprite = 2; // Direita
     } else {
-        currentSprite = 1; // De costas (ou parado)
+        currentSprite = 1; // De costas 
     }
 };
 
@@ -76,7 +78,6 @@ const start = () => {
         loop();
     }, 1000 / FRAMES);
 };
-
 const loop = () => {
     setTimeout(() => {
         CTX.fillStyle = bgPattern;
@@ -84,15 +85,18 @@ const loop = () => {
         CTX.drawImage(bgImage, 0, 0, CANVAS.width, CANVAS.height);
         updateSprite();
 
-        // Desenha o McQueen com o sprite correspondente
         mcqueen.move(boundaries, key);
         mcqueen.draw(CTX);
 
-        // Desenha e move cada inimigo
-        enemies.forEach(enemy => {
-            if (enemy) { // Certifica-se de que o inimigo foi criado corretamente
+        enemies.forEach((enemy) => {
+            if (enemy) { 
                 enemy.move(boundaries);
                 enemy.draw(CTX);
+
+                if (enemy.hasPassed && !enemy.hasPlayedPassSound) {
+                    passSound.play();
+                    enemy.hasPlayedPassSound = true; 
+                }
                 gameover = !gameover
                     ? mcqueen.colide(enemy)
                     : true;
@@ -100,7 +104,11 @@ const loop = () => {
         });
 
         if (gameover) {
-            console.error('DEAD!!!');
+            CTX.font = "50px Montserrat";
+            CTX.fillStyle = "red";
+            CTX.textAlign = "center";
+            CTX.fillText("GAME OVER", CANVAS.width / 2, CANVAS.height / 2);
+            crashSound.play();
             cancelAnimationFrame(anime);
         } else {
             requestAnimationFrame(loop);

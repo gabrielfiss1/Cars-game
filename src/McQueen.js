@@ -2,7 +2,7 @@ import Circle from './geometries/Circle'
 import { loadImage } from "./loaderAssets"
 
 export default class McQueen extends Circle {
-    constructor(x, y, velocity = 5, width, height, FRAMES = 60) {
+    constructor(x, y, velocity = 20, width, height, FRAMES = 60) {
         super(x, y, 0)
         this.cellWidth = 50;  // Largura correta de cada sprite
         this.cellHeight = 40; // Altura correta de cada sprite
@@ -11,7 +11,7 @@ export default class McQueen extends Circle {
         this.speed = velocity;
 
         this.totalSprites = 3; // Total de sprites (esquerda, costas, direita)
-        this.spriteSpeed = 1;
+        this.spriteSpeed = 10;
 
         this.loadImage();
         this.setSprites(); // Chama setSprites antes de inicializar o status
@@ -59,7 +59,7 @@ export default class McQueen extends Circle {
             this.x + this.width / 2,
             this.y + this.height / 2,
             this.width * 0.2, 2,
-            "rgba(0,0,255,.3)"
+            "transparent"
         );
     }
 
@@ -105,7 +105,7 @@ export default class McQueen extends Circle {
         let { x: newx, y: newy } = this.movements[this.status] || { x: this.x, y: this.y };
 
         // Garante que o carro não saia dos limites da tela
-        if (newx >= 0 && newx <= limits.width - this.width) {
+        if (newx >= 60 && newx <= limits.width - this.width) {
             this.x = newx;
         }
         if (newy >= 0 && newy <= limits.height - this.height) {
