@@ -116,6 +116,11 @@ export default class McQueen extends Circle {
     }
 
     colide(other) {
-        return this.hit.colide(other);
+        const dx = this.hit.x - other.x - other.width / 2;
+        const dy = this.hit.y - other.y - other.height / 2;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+    
+        return distance < this.hit.size + other.width / 2;
     }
+    
 }
