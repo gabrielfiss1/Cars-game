@@ -11,7 +11,7 @@ let passSound;
 let mcqueenSpriteImage = null;
 let bgImage = null;
 let bgPattern;
-const mcqueen = new McQueen(240, 480, 10, 100, 100, FRAMES);
+const mcqueen = new McQueen(240, 480, 5, 100, 100, FRAMES);
 
 const enemySpritePaths = [
     '/src/img/vilainsprite.png', 
@@ -113,7 +113,7 @@ const loop = () => {
         } else {
             requestAnimationFrame(loop);
         }
-    }, 1000 / FRAMES);
+    }, 60 / FRAMES);
 };
 
 export { init };
