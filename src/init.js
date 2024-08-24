@@ -11,7 +11,12 @@ let passSound;
 let mcqueenSpriteImage = null;
 let bgImage = null;
 let bgPattern;
+let enemies = [];
+let currentSprite = 1; 
+let boundaries;
+let gameover = false;
 const mcqueen = new McQueen(240, 480, 5, 100, 100, FRAMES);
+let score = 0;
 
 const enemySpritePaths = [
     '/src/img/vilainsprite.png', 
@@ -22,11 +27,7 @@ function getRandomSprite() {
     return enemySpritePaths[Math.floor(Math.random() * enemySpritePaths.length)];
 }
 
-let enemies = [];
-let currentSprite = 1; 
 
-let boundaries;
-let gameover = false;
 
 const init = async () => {
     console.log("Initialize Canvas");
@@ -40,17 +41,24 @@ const init = async () => {
         bgPattern = CTX.createPattern(bgImage, 'repeat');
 
         crashSound = new Audio('/src/sounds/crash.mp3'); 
-        passSound = new Audio('/src/sounds/pass.mp3'); 
+        passSound = new Audio('/src/sounds/pass2.mp3'); 
 
         boundaries = {
             width: CANVAS.width,
             height: CANVAS.height
         };
 
+        const enemySpawnArea = {
+            minX: CANVAS.width * 0.4,  // 40% da largura da tela
+            maxX: CANVAS.width * 0.7,  // 70% da largura da tela
+            minY: -CANVAS.height * 0.1, // 10% acima da tela (negativo)
+            maxY: -CANVAS.height * 0.9  // 0% acima da tela (negativo)
+        };
+        
         enemies = Array.from({ length: 2 }, () => {
             return new Enemy(
-                Math.random() * CANVAS.width,
-                Math.random() * -CANVAS.height, // Inimigos começam fora da tela por isso o menos
+                Math.random() * (enemySpawnArea.maxX - enemySpawnArea.minX) + enemySpawnArea.minX,
+                Math.random() * (enemySpawnArea.maxY - enemySpawnArea.minY) + enemySpawnArea.minY,
                 80, 80, 5, getRandomSprite()
             );
         });
@@ -72,6 +80,41 @@ const updateSprite = () => {
     }
 };
 
+const drawHUD = () => {
+    // Fundo do HUD
+    CTX.fillStyle = "rgba(0, 0, 0, 0.5)"; // Fundo preto com 50% de opacidade
+    CTX.fillRect(2, 12, 100, 40); // Retângulo de fundo
+
+    // Texto do HUD
+    CTX.font = "20px Arial";
+    CTX.fillStyle = "white";
+    CTX.textAlign = "left";
+    CTX.fillText(`Pontos: ${score}`, 3, 40); // Texto dos pontos
+
+    // Sombra do texto para destaque
+    CTX.shadowColor = "rgba(0, 0, 0, 0.5)";
+    CTX.shadowOffsetX = 2;
+    CTX.shadowOffsetY = 2;
+    CTX.shadowBlur = 5;
+    
+    // Desenhe o texto novamente para aplicar a sombra
+    CTX.fillText(`Pontos: ${score}`, 3, 40);
+
+    // Remova a sombra após desenhar o HUD para não afetar outros elementos
+    CTX.shadowColor = "transparent";
+};
+
+
+const adjustEnemySpeed = () => {
+    if (score > 0 && score % 10 === 0) {
+        enemies.forEach((enemy) => {
+            enemy.speed += 1;  // Aumenta a velocidade de todos os inimigos
+        });
+        score++; // Incrementa para evitar que a velocidade aumente a cada quadro enquanto o score for múltiplo de 10
+    }
+};
+
+
 const start = () => {
     let startInterval = setInterval(() => {
         clearInterval(startInterval);
@@ -88,6 +131,8 @@ const loop = () => {
         mcqueen.move(boundaries, key);
         mcqueen.draw(CTX);
 
+        adjustEnemySpeed();
+
         enemies.forEach((enemy) => {
             if (enemy) { 
                 enemy.move(boundaries);
@@ -96,12 +141,14 @@ const loop = () => {
                 if (enemy.hasPassed && !enemy.hasPlayedPassSound) {
                     passSound.play();
                     enemy.hasPlayedPassSound = true; 
+                    score += 1; 
                 }
                 gameover = !gameover
                     ? mcqueen.colide(enemy)
                     : true;
             }
         });
+        drawHUD()
 
         if (gameover) {
             CTX.font = "50px Montserrat";

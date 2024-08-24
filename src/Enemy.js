@@ -46,9 +46,13 @@ export default class Enemy {
     }
 
     limits(limits) {
+        const margin = 200; // Margem de 50 pixels nas laterais
+
         if (this.y - this.height > limits.height) {
             this.y = -this.height;
-            this.x = Math.random() * limits.width;
+
+            // Garante que o inimigo apareça dentro dos limites, respeitando as margens
+            this.x = Math.random() * (limits.width - 2 * margin) + margin;
         }
     }
 }
