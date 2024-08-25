@@ -1,5 +1,4 @@
 
-
 const personagens = document.querySelectorAll('.personagem');
 
 personagens.forEach(personagem => {
@@ -30,7 +29,7 @@ function alterarNomePersonagemSelecionado(personagem) {
 function alterarImagemPersonagemSelecionado(personagem) {
     const idPersonagem = personagem.attributes.id.value;
     const imagemPersonagemGrande = document.querySelector('.personagem_grande');
-    imagemPersonagemGrande.src = ` ./src/imagens/card-${idPersonagem}.png `;
+    imagemPersonagemGrande.src = ` ./src/img/card-${idPersonagem}.png `;
 }
 
 function removerSelecaoDoPersonagem(personagem) {

@@ -8,6 +8,7 @@ let CANVAS;
 const FRAMES = 45;
 let crashSound;
 let passSound; 
+let victorySound;
 let mcqueenSpriteImage = null;
 let bgImage = null;
 let bgPattern;
@@ -42,6 +43,7 @@ const init = async () => {
 
         crashSound = new Audio('/src/sounds/crash.mp3'); 
         passSound = new Audio('/src/sounds/pass2.mp3'); 
+        victorySound = new Audio('/src/sounds/youwin.mp3');
 
         boundaries = {
             width: CANVAS.width,
@@ -52,7 +54,7 @@ const init = async () => {
             minX: CANVAS.width * 0.4,  // 40% da largura da tela
             maxX: CANVAS.width * 0.7,  // 70% da largura da tela
             minY: -CANVAS.height * 0.1, // 10% acima da tela (negativo)
-            maxY: -CANVAS.height * 0.9  // 0% acima da tela (negativo)
+            maxY: -CANVAS.height * 0.9  // 90% acima da tela (negativo)
         };
         
         enemies = Array.from({ length: 2 }, () => {
@@ -81,28 +83,16 @@ const updateSprite = () => {
 };
 
 const drawHUD = () => {
-    // Fundo do HUD
     CTX.fillStyle = "rgba(0, 0, 0, 0.5)"; // Fundo preto com 50% de opacidade
     CTX.fillRect(2, 12, 100, 40); // Retângulo de fundo
 
-    // Texto do HUD
     CTX.font = "20px Arial";
     CTX.fillStyle = "white";
     CTX.textAlign = "left";
     CTX.fillText(`Pontos: ${score}`, 3, 40); // Texto dos pontos
-
-    // Sombra do texto para destaque
-    CTX.shadowColor = "rgba(0, 0, 0, 0.5)";
-    CTX.shadowOffsetX = 2;
-    CTX.shadowOffsetY = 2;
-    CTX.shadowBlur = 5;
-    
-    // Desenhe o texto novamente para aplicar a sombra
-    CTX.fillText(`Pontos: ${score}`, 3, 40);
-
-    // Remova a sombra após desenhar o HUD para não afetar outros elementos
     CTX.shadowColor = "transparent";
 };
+
 
 
 const adjustEnemySpeed = () => {
@@ -149,6 +139,15 @@ const loop = () => {
             }
         });
         drawHUD()
+
+        if(score == 50){
+            CTX.font = "50px Montserrat";
+            CTX.fillStyle = "green";
+            CTX.textAlign = "center";
+            CTX.fillText("YOU WIN", CANVAS.width / 2, CANVAS.height / 2);
+            victorySound.play();
+            cancelAnimationFrame(anime);
+        }
 
         if (gameover) {
             CTX.font = "50px Montserrat";
