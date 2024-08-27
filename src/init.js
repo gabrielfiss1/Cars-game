@@ -20,8 +20,8 @@ const mcqueen = new McQueen(240, 480, 5, 100, 100, FRAMES);
 let score = 0;
 
 const enemySpritePaths = [
-    '/src/img/vilainsprite.png', 
-    '/src/img/vilainsprite2.png'  // adicionar mais sprites
+    '/img/vilainsprite.png', 
+    '/img/vilainsprite2.png'  // adicionar mais sprites
 ];
 
 function getRandomSprite() {
