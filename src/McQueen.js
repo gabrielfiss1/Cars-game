@@ -24,7 +24,7 @@ export default class McQueen extends Circle {
     }
 
     async loadImage() {
-        this.img = await loadImage('/src/img/mcqueenback.png');
+        this.img = await loadImage('/img/mcqueenback.png');
     }
 
     draw(CTX) {
