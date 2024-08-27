@@ -10,12 +10,12 @@ export default class McQueen extends Circle {
         this.height = height;
         this.speed = velocity;
 
-        this.totalSprites = 3; // Total de sprites (esquerda, costas, direita)
+        this.totalSprites = 3; // total de sprites (esquerda, costas, direita)
         this.spriteSpeed = 10;
 
         this.loadImage();
         this.setSprites(); // Chama setSprites antes de inicializar o status
-        this.status = 'down'; // Status inicial
+        this.status = 'down'; // status inicial
 
         this.showHit = true;
         this.setHit();
