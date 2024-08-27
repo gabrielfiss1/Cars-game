@@ -34,16 +34,18 @@ const init = async () => {
     console.log("Initialize Canvas");
     CANVAS = document.querySelector('canvas');
     CTX = CANVAS.getContext('2d');
-    CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
+    CTX.clearRect(0, 0, CANVAS.width, CANVAS.height); //revisar clear rect
 
     try {
-        mcqueenSpriteImage = await loadImage('/src/img/mcqueenback.png');
-        bgImage = await loadImage('/src/img/roadbg.png');
+        mcqueenSpriteImage = await loadImage('/img/mcqueenback.png');
+        bgImage = await loadImage('/img/roadbg.png');
         bgPattern = CTX.createPattern(bgImage, 'repeat');
 
-        crashSound = new Audio('/src/sounds/crash.mp3'); 
-        passSound = new Audio('/src/sounds/pass2.mp3'); 
-        victorySound = new Audio('/src/sounds/youwin.mp3');
+        crashSound = new Audio('/sounds/crash.mp3'); 
+        crashSound.volume = .3
+        passSound = new Audio('/sounds/pass2.mp3'); 
+        passSound.volume = .3
+        victorySound = new Audio('/sounds/youwin.mp3');
 
         boundaries = {
             width: CANVAS.width,
@@ -130,12 +132,11 @@ const loop = () => {
 
                 if (enemy.hasPassed && !enemy.hasPlayedPassSound) {
                     passSound.play();
+                    
                     enemy.hasPlayedPassSound = true; 
                     score += 1; 
                 }
-                gameover = !gameover
-                    ? mcqueen.colide(enemy)
-                    : true;
+                gameover = !gameover ? mcqueen.colide(enemy): true; //revisar
             }
         });
         drawHUD()
