@@ -37,7 +37,7 @@ const init = async () => {
     CTX.clearRect(0, 0, CANVAS.width, CANVAS.height); //revisar clear rect
 
     try {
-        mcqueenSpriteImage = await loadImage('/img/mcqueenback.png');
+        // mcqueenSpriteImage = await loadImage('/img/mcqueenback.png');
         bgImage = await loadImage('/img/roadbg.png');
         bgPattern = CTX.createPattern(bgImage, 'repeat');
 

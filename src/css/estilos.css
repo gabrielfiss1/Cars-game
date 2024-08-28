@@ -33,6 +33,7 @@ body::before{
     align-items: center;
     gap: 30px;
     justify-content: center;
+   
 }
 
 .selecao_personagens 
@@ -126,16 +127,22 @@ button_container{
     color: aliceblue;
     font-size: 18px;
     font-weight: bold;
-    letter-spacing: 0.2em;
-    
-    
+    letter-spacing: 0.2em;   
 }
 .canvasHidden{
     display: none;
 }
+
+.canvasVisible {
+    display: block;
+  }
+.hidden {
+    display: none;
+  }
+  
 canvas {
     border: 1px solid black;
-    margin: 5% 33%;  
+    margin: 1% 34.3%;  
 }
 
 /* responsividade */

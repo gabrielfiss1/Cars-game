@@ -2,7 +2,7 @@ import Circle from './geometries/Circle'
 import { loadImage } from "./loaderAssets"
 
 export default class McQueen extends Circle {
-    constructor(x, y, velocity = 20, width, height, FRAMES = 60) {
+    constructor(x, y, velocity, width, height, FRAMES = 60) {
         super(x, y, 0)
         this.cellWidth = 50;  // Largura correta de cada sprite
         this.cellHeight = 40; // Altura correta de cada sprite
@@ -35,7 +35,7 @@ export default class McQueen extends Circle {
         let spriteHeight = this.cellHeight;
         
         if (this.status === 'down') {
-            spriteWidth = 41; // Ajuste para o sprite de costas
+            spriteWidth = 40; // Ajuste para o sprite de costas
             spriteHeight = 40; // Ajuste para o sprite de costas
         }
 
