@@ -9,6 +9,7 @@ const FRAMES = 45;
 let crashSound;
 let passSound; 
 let victorySound;
+let themeSound;
 let mcqueenSpriteImage = null;
 let bgImage = null;
 let bgPattern;
@@ -41,6 +42,9 @@ const init = async () => {
         bgImage = await loadImage('/img/roadbg.png');
         bgPattern = CTX.createPattern(bgImage, 'repeat');
 
+        themeSound = new Audio('/sounds/themesound.mp3');
+        themeSound.play()
+        themeSound.volume = .2
         crashSound = new Audio('/sounds/crash.mp3'); 
         crashSound.volume = .3
         passSound = new Audio('/sounds/pass2.mp3'); 
