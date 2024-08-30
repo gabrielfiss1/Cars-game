@@ -22,23 +22,20 @@ let score = 0;
 
 const enemySpritePaths = [
     '/img/vilainsprite.png', 
-    '/img/vilainsprite2.png'  // adicionar mais sprites
+    '/img/vilainsprite2.png'  
 ];
 
 function getRandomSprite() {
     return enemySpritePaths[Math.floor(Math.random() * enemySpritePaths.length)];
 }
 
-
-
 const init = async () => {
     console.log("Initialize Canvas");
     CANVAS = document.querySelector('canvas');
     CTX = CANVAS.getContext('2d');
-    CTX.clearRect(0, 0, CANVAS.width, CANVAS.height); //revisar clear rect
+    CTX.clearRect(0, 0, CANVAS.width, CANVAS.height); 
 
     try {
-        // mcqueenSpriteImage = await loadImage('/img/mcqueenback.png');
         bgImage = await loadImage('/img/roadbg.png');
         bgPattern = CTX.createPattern(bgImage, 'repeat');
 
@@ -104,7 +101,7 @@ const drawHUD = () => {
 const adjustEnemySpeed = () => {
     if (score > 0 && score % 10 === 0) {
         enemies.forEach((enemy) => {
-            enemy.speed += 1;  // Aumenta a velocidade de todos os inimigos
+            enemy.speed += 1;  // Aumenta a velocidade 
         });
         score++; // Incrementa para evitar que a velocidade aumente a cada quadro enquanto o score for múltiplo de 10
     }

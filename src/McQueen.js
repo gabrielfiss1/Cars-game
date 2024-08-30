@@ -10,7 +10,7 @@ export default class McQueen extends Circle {
         this.height = height;
         this.speed = velocity;
 
-        this.totalSprites = 3; // total de sprites (esquerda, costas, direita)
+        this.totalSprites = 3; 
         this.spriteSpeed = 10;
 
         this.loadImage();
@@ -35,8 +35,8 @@ export default class McQueen extends Circle {
         let spriteHeight = this.cellHeight;
         
         if (this.status === 'down') {
-            spriteWidth = 40; // Ajuste para o sprite de costas
-            spriteHeight = 40; // Ajuste para o sprite de costas
+            spriteWidth = 40; 
+            spriteHeight = 40;
         }
 
         const spriteX = this.cellWidth * this.sprites[this.status];
@@ -65,7 +65,7 @@ export default class McQueen extends Circle {
 
     setSprites() {
         this.sprites = {
-            'down': 1, // Sprite central (de costas)
+            'down': 1, // Sprite de costas
             'left': 0,  // Primeiro sprite (esquerda)
             'right': 2  // Terceiro sprite (direita)
         };
@@ -77,7 +77,7 @@ export default class McQueen extends Circle {
             "d": "right",
             "ArrowLeft": "left",
             "ArrowRight": "right",
-            "s": "down" // Adiciona controle para o sprite de costas
+            "s": "down" 
         };
     }
 

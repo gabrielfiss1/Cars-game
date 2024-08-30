@@ -1,7 +1,7 @@
 import { loadImage } from "./loaderAssets";
 
 export default class Enemy {
-    constructor(x, y, width, height, speed = 10, spritePath) {
+    constructor(x, y, width, height, speed, spritePath) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -18,8 +18,7 @@ export default class Enemy {
     }
 
     draw(CTX) {
-        if (this.img) {
-            
+        if (this.img) {           
             CTX.drawImage(this.img, this.x, this.y, this.width, this.height);
         } else {
             CTX.fillStyle = this.color || '#f00'; 
