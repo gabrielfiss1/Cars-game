@@ -169,3 +169,11 @@ canvas {
         display: flex;
     }
 }
+
+@media (max-width: 400px) {
+    canvas{
+        height: 400px;
+        width: 300px;
+        margin: 5% 10%;
+    }
+}
