@@ -21,8 +21,9 @@ const mcqueen = new McQueen(240, 480, 5, 100, 100, FRAMES);
 let score = 0;
 
 const enemySpritePaths = [
-    '/img/vilainsprite.png', 
-    '/img/vilainsprite2.png'  
+    //'/img/villainSprite2.png', 
+    '/img/villainSprite.png',
+    '/img/villainSprite3.png'
 ];
 
 function getRandomSprite() {
@@ -38,10 +39,9 @@ const init = async () => {
     try {
         bgImage = await loadImage('/img/roadbg.png');
         bgPattern = CTX.createPattern(bgImage, 'repeat');
-
         themeSound = new Audio('/sounds/themesound.mp3');
         themeSound.play()
-        themeSound.volume = .2
+        themeSound.volume = .1
         crashSound = new Audio('/sounds/crash.mp3'); 
         crashSound.volume = .3
         passSound = new Audio('/sounds/pass2.mp3'); 
@@ -64,7 +64,7 @@ const init = async () => {
             return new Enemy(
                 Math.random() * (enemySpawnArea.maxX - enemySpawnArea.minX) + enemySpawnArea.minX,
                 Math.random() * (enemySpawnArea.maxY - enemySpawnArea.minY) + enemySpawnArea.minY,
-                80, 80, 5, getRandomSprite()
+                100, 100, 5, getRandomSprite()
             );
         });
 
@@ -101,7 +101,8 @@ const drawHUD = () => {
 const adjustEnemySpeed = () => {
     if (score > 0 && score % 10 === 0) {
         enemies.forEach((enemy) => {
-            enemy.speed += 1;  // Aumenta a velocidade 
+          enemy.speed += 1;  // dobrar velocidade
+          
         });
         score++; // Incrementa para evitar que a velocidade aumente a cada quadro enquanto o score for múltiplo de 10
     }

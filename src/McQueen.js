@@ -2,13 +2,13 @@ import Circle from './geometries/Circle'
 import { loadImage } from "./loaderAssets"
 
 export default class McQueen extends Circle {
-    constructor(x, y, velocity, width, height, FRAMES = 60) {
+    constructor(x, y, speed, width, height, FRAMES = 60) {
         super(x, y, 0)
-        this.cellWidth = 50;  // Largura correta de cada sprite
-        this.cellHeight = 40; // Altura correta de cada sprite
+        this.cellWidth = 50;  // Largura  sprite
+        this.cellHeight = 40; // Altura  sprite
         this.width = width;
         this.height = height;
-        this.speed = velocity;
+        this.speed = speed;
 
         this.totalSprites = 3; 
         this.spriteSpeed = 10;
@@ -30,7 +30,7 @@ export default class McQueen extends Circle {
     draw(CTX) {
         if (!this.img) return; // Aguarda a imagem ser carregada
 
-        // Ajusta a largura e altura do sprite de costas se necessário
+    
         let spriteWidth = this.cellWidth;
         let spriteHeight = this.cellHeight;
         
@@ -58,7 +58,7 @@ export default class McQueen extends Circle {
         this.hit = new Circle(
             this.x + this.width / 2,
             this.y + this.height / 2,
-            this.width * 0.2, 2,
+            this.width * 0.2, 2, //20% do tamanho do mcqueen
             "transparent"
         );
     }
@@ -77,6 +77,7 @@ export default class McQueen extends Circle {
             "d": "right",
             "ArrowLeft": "left",
             "ArrowRight": "right",
+            "ArrowDown": "down",
             "s": "down" 
         };
     }
